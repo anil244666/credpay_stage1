@@ -3,7 +3,7 @@ pool:
 variables:
   acrserviceconnection: 'acr-service-connection'
   frontendrepository: 'credpay/frontedn'
-  userrepository: 'credpay/user-interface'
+  userrepository: 'credpay/user-service'
   paymentrepository: 'credpay/payment-service'
   tag: '$(Build.BuildId)'
 stages:
@@ -30,7 +30,7 @@ stages:
               repository: '$(userrepository)'
               command: 'buildAndPush'
               Dockerfile: 'user-service/dockerfile'
-              buildContext: 'user-interface'
+              buildContext: 'user-service'
               tags: |
                 $(tag)
                 lates
