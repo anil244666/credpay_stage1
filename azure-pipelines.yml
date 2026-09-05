@@ -20,6 +20,6 @@ stages:
               repository: '$(frontendrepository)'
               command: 'buildAndPush'
               Dockerfile: 'frontend-react/dockerfile'
-              buildContext: 'frontedn-react'
+              buildContext: 'fronted-react'
               tags: |
                 $(tag)
