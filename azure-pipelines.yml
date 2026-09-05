@@ -16,8 +16,10 @@ stages:
           - checkout: self
           - task: Docker@2
             inputs:
-              containerRegistry: '$(acrserviceconnection)'
+              containerRegistry: 'acr-service-connection'
               repository: '$(frontendrepository)'
               command: 'buildAndPush'
-              Dockerfile: '**/Dockerfile' # Update path if needed
-              tags: '$(tag)'
+              Dockerfile: 'frontend-react/dockerfile'
+              buildContext: 'frontedn-react'
+              tags: |
+                $(tag)
