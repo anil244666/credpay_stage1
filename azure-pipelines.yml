@@ -33,4 +33,14 @@ stages:
               buildContext: 'user-service'
               tags: |
                 $(tag)
-                lates
+                latest
+          - task: Docker@2
+            inputs:
+              containerRegistry: 'acr-service-connection'
+              repository: '$(paymentrepository)'
+              command: 'buildAndPush'
+              Dockerfile: 'paymentrepository'
+              buildContext: 'payment-service'
+              tags: |
+                $(tag)
+                latest
