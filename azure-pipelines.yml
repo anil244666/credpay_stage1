@@ -24,3 +24,13 @@ stages:
               tags: |
                 $(tag)
                 latest
+          - task: Docker@2
+            inputs:
+              containerRegistry: 'acr-service-connection'
+              repository: '$(userrepository)'
+              command: 'buildAndPush'
+              Dockerfile: 'user-service/dockerfile'
+              buildContext: 'user-interface'
+              tags: |
+                $(tag)
+                lates
