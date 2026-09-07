@@ -35,7 +35,7 @@ stages:
               command: 'apply'
               workingDirectory: 'terraform'
               environmentServiceNameAzureRM: 'HDFC-Manual'
-              commandOptions: '-auto-approve -var="key_resource_group_name=capstone-RG" -var-file="terraform.tfvars"'
+              commandOptions: '-auto-approve -var-file="terraform.tfvars"'
 
 
 
