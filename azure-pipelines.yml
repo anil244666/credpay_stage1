@@ -30,13 +30,12 @@ stages:
               backendAzureRmContainerName: 'statefile'
               backendAzureRmKey: 'credpay.terraform.tfstate'
           - task: TerraformTask@5
-            inputs: 
+            inputs:
               provider: 'azurerm'
               command: 'apply'
               workingDirectory: 'terraform'
-              environmentServiceName: 'HDFC-Manual'
+              environmentServiceNameAzureRM: 'HDFC-Manual'
               commandOptions: '-auto-approve'
-        
 
 
 
