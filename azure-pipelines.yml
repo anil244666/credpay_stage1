@@ -36,6 +36,11 @@ stages:
               workingDirectory: 'terraform'
               environmentServiceNameAzureRM: 'HDFC-Manual'
               commandOptions: '-auto-approve -var-file="terraform.tfvars"'
+          - task: TerraformTask@5
+            inputs:
+                provider: 'azurerm'
+                command: 'destroy'
+                environmentServiceNameAzureRM: 'HDFC-Manual'
 
 
 
