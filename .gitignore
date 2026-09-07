@@ -13,10 +13,17 @@
 crash.log
 crash.*.log
 
+<<<<<<< HEAD
 # Variable files with real values - keep only *.tfvars.example
 #*.tfvars
 #*.tfvars.json
 #!*.tfvars.example
+=======
+# # Variable files with real values - keep only *.tfvars.example
+# *.tfvars
+# *.tfvars.json
+# !*.tfvars.example
+>>>>>>> 8f0abf7 (Update gitignore)
 
 # Saved plans
 *.tfplan
