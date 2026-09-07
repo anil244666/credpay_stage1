@@ -6,41 +6,93 @@ variables:
   userrepository: 'credpay/user-service'
   paymentrepository: 'credpay/payment-service'
   tag: '$(Build.BuildId)'
+
 stages:
-  - stage: dockerbuild
-    displayName: 'Docker Build'
+  - stage: terraform
+    displayName: 'Terraform Infra'
     jobs:
-      - job: buildpushimage
-        displayName: 'Build and Push Image'
+      - job: terraformapply
+        displayName: 'Terraform Init and Apply'
         steps:
           - checkout: self
-          - task: Docker@2
+          - task: TerraformInstaller@1
             inputs:
-              containerRegistry: 'acr-service-connection'
-              repository: '$(frontendrepository)'
-              command: 'buildAndPush'
-              Dockerfile: 'frontend-react/dockerfile'
-              buildContext: 'frontend-react'
-              tags: |
-                $(tag)
-                latest
-          - task: Docker@2
+              terraformVersion: 'latest'
+          - task: TerraformTask@5
             inputs:
-              containerRegistry: 'acr-service-connection'
-              repository: '$(userrepository)'
-              command: 'buildAndPush'
-              Dockerfile: 'user-service/dockerfile'
-              buildContext: 'user-service'
-              tags: |
-                $(tag)
-                latest
-          - task: Docker@2
-            inputs:
-              containerRegistry: 'acr-service-connection'
-              repository: '$(paymentrepository)'
-              command: 'buildAndPush'
-              Dockerfile: 'payment-service/dockerfile'
-              buildContext: 'payment-service'
-              tags: |
-                $(tag)
-                latest
+              provider: 'azurerm'
+              command: 'init'
+              workingDirectory: 'terraform'
+              backendServiceArm: 'HDFC-Manual'
+              backendAzureRmOverrideSubscriptionID: '82377c62-bcaf-4fae-a8bb-ca7d0edb51d2'
+              backendAzureRmResourceGroupName: 'capstone-RG'
+              backendAzureRmStorageAccountName: 'credpayproject12'
+              backendAzureRmContainerName: 'statefile'
+              backendAzureRmKey: 'credpay.terraform.tfstate'
+          # - task: TerraformTask@5
+          #   inputs: 
+          #     provider: 'azurerm'
+          #     command: 'apply'
+          #     workingDirectory: 'terraform'
+          #     environmentServiceName: 'HDFC-Manual'
+          #     commandOptions: '-auto-approve'
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  # - stage: dockerbuild
+  #   displayName: 'Docker Build'
+  #   jobs:
+  #     - job: buildpushimage
+  #       displayName: 'Build and Push Image'
+  #       steps:
+  #         - checkout: self
+  #         - task: Docker@2
+  #           inputs:
+  #             containerRegistry: 'acr-service-connection'
+  #             repository: '$(frontendrepository)'
+  #             command: 'buildAndPush'
+  #             Dockerfile: 'frontend-react/dockerfile'
+  #             buildContext: 'frontend-react'
+  #             tags: |
+  #               $(tag)
+  #               latest
+  #         - task: Docker@2
+  #           inputs:
+  #             containerRegistry: 'acr-service-connection'
+  #             repository: '$(userrepository)'
+  #             command: 'buildAndPush'
+  #             Dockerfile: 'user-service/dockerfile'
+  #             buildContext: 'user-service'
+  #             tags: |
+  #               $(tag)
+  #               latest
+  #         - task: Docker@2
+  #           inputs:
+  #             containerRegistry: 'acr-service-connection'
+  #             repository: '$(paymentrepository)'
+  #             command: 'buildAndPush'
+  #             Dockerfile: 'payment-service/dockerfile'
+  #             buildContext: 'payment-service'
+  #             tags: |
+  #               $(tag)
+  #               latest
