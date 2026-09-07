@@ -14,15 +14,15 @@ variable "admin_username" {
   type        = string
   description = "Admin username for PostgreSQL"
 }
-variable "databas_name" {
+variable "database_name" {
   type        = string
-  description = "Admin password for PostgreSQL"
+  description = "Name of the PostgreSQL database"
 }
 variable "postgres_version" {
   type        = string
   description = "PostgreSQL version"
 }
-variables "tags" {
+variable "tags" {
   type        = map(string)
   default    = {
     environment = "dev"

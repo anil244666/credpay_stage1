@@ -22,10 +22,10 @@ resource "azurerm_postgresql_flexible_server" "postgres_server" {
   tags = var.tags
 }
 resource "azurerm_postgresql_flexible_server_database" "pgdb" {
-  name                = var.databas_name
+  name                = var.database_name
   server_id           = azurerm_postgresql_flexible_server.postgres_server.id
-  charset             = "UTF8"
-  collation           = "en_US.UTF8"    
+  collation           = "en_US.utf8"
+  charset             = "UTF8"   
 }
 
 resource "azurerm_postgresql_flexible_server_firewall_rule" "allow_azure_services" {

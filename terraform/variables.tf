@@ -1,5 +1,5 @@
 variable "subscription_id" {
-    tyepe = string
+    type = string
   
 }
 variable "location"{
@@ -18,7 +18,7 @@ variable "postgesql_subnet_prefix" {
     type = string
     default = "10.0.2.0/24"
 }
-variables "node_count" {
+variable "node_count" {
     type = number
     default = 2
 }

@@ -8,7 +8,8 @@ variable "location" {
     type = string
 }
 variable "retention_days" {
-    type = number
+  type    = number
+  default = 60
 }
 variable "tags" {
     type = map(string)

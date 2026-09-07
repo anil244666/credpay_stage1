@@ -1,3 +1,5 @@
+data "azurerm_client_config" "current" {}
+
 resource "azurerm_kubernetes_cluster" "aks" {
     name                  = "aks-${var.name_prefix}"
     location              = var.location
@@ -7,26 +9,31 @@ resource "azurerm_kubernetes_cluster" "aks" {
     
     azure_active_directory_role_based_access_control {
         azure_rbac_enabled = true
+        tenant_id          = data.azurerm_client_config.current.tenant_id
     }
 
     default_node_pool {
-        name               = "default"
-        node_count         = var.node_count
+        name                 = "default"
+        node_count           = var.node_count
         auto_scaling_enabled = true
-        min_count          = var.node_min_count
-        max_count          = var.node_max_count
-        vnet_subnet_id     = var.aks_subnet_id
-        os_sku             = "Ubuntu"
-        max_pods           = 60
-        type               = "VirtualMachineScaleSets"
+        min_count            = var.node_min_count
+        max_count            = var.node_max_count
+        vnet_subnet_id       = var.aks_subnet_id
+        os_sku               = "Ubuntu"
+        max_pods             = 60
+        type                 = "VirtualMachineScaleSets"
         upgrade_settings {
-            max_surge      = "33%"
+            max_surge        = "33%"
         }
-        vm_size            = var.vm_size
+        vm_size              = var.vm_size
     }
     
     identity {
         type = "SystemAssigned"
+    }
+
+    node_provisioning_profile {
+        mode = "Manual"
     }
     
     network_profile {
@@ -44,7 +51,6 @@ resource "azurerm_kubernetes_cluster" "aks" {
     
     tags = var.tags
 
-    # lifecycle block moved INSIDE the resource block
     lifecycle {
         ignore_changes = [
             default_node_pool[0].node_count
