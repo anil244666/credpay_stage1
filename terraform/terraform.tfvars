@@ -1,12 +1,12 @@
 subscription_id = "82377c62-bcaf-4fae-a8bb-ca7d0edb51d2"
-location = "eastus"
+location = " East Asia"
 vnet_address_space = "10.0.0.0/16"
 aks_subnet_prefix = "10.0.1.0/24"
 postgesql_subnet_prefix = "10.0.2.0/24"
 node_count = 2
 node_minimum_count = 2
 node_maximum_count = 2
-vm_size = "Standard_DS2alds_v6"
+vm_size = "D2ls_v5"
 postgres_version = "17"
 postgres_admin_username = "credpayadmin"
 database_name = "credpay"
