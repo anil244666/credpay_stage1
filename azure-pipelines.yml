@@ -31,9 +31,10 @@ stages:
               backendAzureRmKey: 'credpay.terraform.tfstate'
           - task: TerraformTask@5
             inputs:
-              provider: 'azurerm'
-              command: 'plan'
-              environmentServiceNameAzureRM: 'HDFC-Manual'
+               provider: 'azurerm'
+               command: 'plan'
+               workingDirectory: 'terraform'
+               environmentServiceNameAzureRM: 'HDFC-Manual'
           - task: TerraformTask@5
             inputs:
               provider: 'azurerm'
