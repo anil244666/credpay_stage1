@@ -9,17 +9,25 @@ resource "random_password" "admin" {
 
 }
 resource "azurerm_postgresql_flexible_server" "postgres_server" {
-  name                = "psql-${var.name_prefix}"
-  resource_group_name = var.resource_group_name
-  location            = var.location
-  version             = var.postgres_version
+  name                          = "psql-${var.name_prefix}"
+  resource_group_name           = var.resource_group_name
+  location                      = var.location
+  version                       = var.postgres_version
   public_network_access_enabled = true
-  administrator_login = var.admin_username
-  administrator_password = random_password.admin.result
-  sku_name           = "B_Standard_B2s"
-  storage_mb         = 32768
-  backup_retention_days = 7
-  tags = var.tags
+  administrator_login           = var.admin_username
+  administrator_password        = random_password.admin.result
+  sku_name                      = "B_Standard_B2s"
+  storage_mb                    = 32768
+  backup_retention_days         = 7
+  tags                          = var.tags
+
+  # Add the lifecycle block here to prevent zone modification errors
+  lifecycle {
+    ignore_changes = [
+      zone,
+      high_availability,
+    ]
+  }
 }
 resource "azurerm_postgresql_flexible_server_database" "pgdb" {
   name                = var.database_name
