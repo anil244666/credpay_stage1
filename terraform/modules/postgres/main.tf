@@ -42,8 +42,3 @@ resource "azurerm_postgresql_flexible_server_firewall_rule" "allow_azure_service
   start_ip_address    = "0.0.0.0"
   end_ip_address      = "0.0.0.0"
 } 
-resource "azurerm_postgresql_flexible_server_configuration" "require_ssl" {
-  name                = "required_secure_transport"
-  server_id           = azurerm_postgresql_flexible_server.postgres_server.id
-  value               = "ON"
-}
